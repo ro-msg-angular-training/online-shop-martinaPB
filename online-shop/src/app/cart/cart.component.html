@@ -1,0 +1,22 @@
+<div style = "text-align:left">
+    <h1>
+        {{title}}
+    </h1>
+    <button class="btn btn-primary">Checkout</button>
+    <table class="table table-bordered">
+        <tr>
+            <td>Category</td>
+            <td>Name</td>
+            <td>Price</td>
+            <td>Quantity</td>
+            <td></td>
+        </tr>
+        <tr *ngFor="let item of item">
+            <td>{{item.category}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.price}}</td>
+            <td>1</td>
+            <td>X</td>
+        </tr>
+    </table>
+  </div>
