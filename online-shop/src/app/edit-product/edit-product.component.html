@@ -1,0 +1,26 @@
+<!--<h1>
+    {{title}}
+</h1>
+<div>
+    <form [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
+        <p><input type="text" class="fortextbox" name="id" formControlName="id"></p>
+        <p><input type="text" name="name" formControlName="name"></p>
+        <div class="form-group"><input formControlName="category" id="category" type="text" class="form-control input-md"></div>
+        <div class="form-group"><input type="text" name="image" size="100%" formControlName="image"></div>
+        <p><input type="text" name="price" formControlName="price"></p>
+        <p><input type="text" name="description" size="180%" formControlName="description"></p>
+        <p><button type="submit">Save</button></p>
+    </form>
+</div>-->
+<h1>
+    {{title}}
+</h1>
+<form #editproduct = "ngForm" (ngSubmit) = "onClickSubmit(editproduct.value)" >
+    <p><input type = "text" name = "id" value = "{{product.id}}" ngModel></p>
+    <p><input type = "text" name = "name" value = "{{product.name}}" ngModel></p>    
+    <p><input type = "text" name = "category" value = "{{product.category}}" ngModel></p>    
+    <p><input type = "text" name = "image" value = "{{product.image}}" size="100%" ngModel></p>  
+    <p><input type = "text" name = "price" value = "{{product.price}}" ngModel></p>   
+    <p><input type = "text" name = "description" value = "{{product.description}}" size="180%" ngModel></p>    
+    <p><input type = "submit" value = "Submit"></p>
+ </form>

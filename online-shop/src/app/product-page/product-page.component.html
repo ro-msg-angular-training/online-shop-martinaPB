@@ -1,7 +1,7 @@
 <div style = "text-align:center">
     <button style = "text-align:left" class="btn btn-primary" (click)="goBack()">Back</button>
     <button class="btn btn-primary" (click)="addToCart()">Add</button>
-    <button class="btn btn-primary" (click)="editProduct()">Edit</button>
+    <button class="btn btn-primary" routerLink="/edit-product/{{product.id}}">Edit</button>
     <button class="btn btn-primary" (click)="deleteProduct()">Delete</button>
     <h1>
         {{title}}, {{product.name}}
