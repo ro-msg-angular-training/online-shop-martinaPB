@@ -4,7 +4,7 @@
     <button class="btn btn-primary" routerLink="/edit-product/{{product.id}}">Edit</button>
     <button class="btn btn-primary" (click)="deleteProduct()">Delete</button>
     <h1>
-        {{title}}, {{product.name}}
+        {{title}} {{product.name}}
     </h1>
     <table *ngIf="product" >
         <tr>

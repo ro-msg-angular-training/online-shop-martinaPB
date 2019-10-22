@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ProductsService } from '../products.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from '../classes';
@@ -14,7 +15,8 @@ export class AddProductComponent implements OnInit {
   product: Product;
   constructor(
     private products: ProductsService,
-    private http: HttpClient
+    private http: HttpClient,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -23,7 +25,6 @@ export class AddProductComponent implements OnInit {
     debugger;
 
     const body = {
-      "id": data.id,
       "name": data.name,
       "category": data.category,
       "price": data.price,
@@ -31,5 +32,9 @@ export class AddProductComponent implements OnInit {
       "description": data.description
     };
     return this.http.post<Product>("http://localhost:3000/products", body).subscribe();    
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

@@ -11,6 +11,7 @@ import { ProductsService } from './products.service';
 import { CartItemsService } from './cart-items.service';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { OrdersService } from './orders.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,7 @@ import { EditProductComponent } from './edit-product/edit-product.component';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [ProductsService, CartItemsService],
+  providers: [ProductsService, CartItemsService, OrdersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

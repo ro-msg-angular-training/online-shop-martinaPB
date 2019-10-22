@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { CartItem, Product } from '../classes.js';
 import { ProductsService } from '../products.service';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
@@ -12,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class EditProductComponent implements OnInit {
   title = "Edit product";
   product: Product;
+  formdata: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private location: Location,
@@ -20,27 +22,34 @@ export class EditProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getProduct();
-  }
-  getProduct(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    //this.product = Object.values(mockdata)[id];
-
-    this.http.get<Product>("http://localhost:3000/products/" + id)
-            .subscribe(data => this.product = data);
+    this.products.getProduct(id).subscribe(data => {
+      this.product = data
+      this.formdata = new FormGroup({
+        name: new FormControl(this.product.name),
+        category: new FormControl(this.product.category),
+        image: new FormControl(this.product.image),
+        price: new FormControl(this.product.price),
+        description: new FormControl(this.product.description)
+      });
+    
+    });
   }
-  onClickSubmit(data) {
-    const id = +this.route.snapshot.paramMap.get('id');
-    debugger;
-
-    const body = {
-      "id": data.id,
-      "name": data.name,
-      "category": data.category,
-      "price": data.price,
-      "image": data.image,
-      "description": data.description
+  onClickSubmit() {
+   
+  debugger
+    const formValues = this.formdata.value;
+    const product1: Product = {
+      id: this.product.id,
+      name: formValues.name,
+      category: formValues.category,
+      price: formValues.price,
+      image: formValues.image,
+      description: formValues.description
     };
-    return this.http.put<Product>("http://localhost:3000/products/" + id, body).subscribe();
+    return this.http.put<Product>("http://localhost:3000/products/" +  this.product.id, product1).subscribe();
+  }
+  goBack(): void {
+    this.location.back();
   }
 }
