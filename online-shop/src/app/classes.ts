@@ -15,3 +15,9 @@ export class Product {
     price: number;
     description: string;
   }
+
+  export interface User {
+    username: string;
+    fullname: string;
+    roles: string[];
+  }

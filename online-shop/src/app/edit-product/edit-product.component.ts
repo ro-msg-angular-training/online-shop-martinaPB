@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { CartItem, Product } from '../classes.js';
 import { ProductsService } from '../products.service';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
@@ -22,22 +22,26 @@ export class EditProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    debugger
     const id = +this.route.snapshot.paramMap.get('id');
     this.products.getProduct(id).subscribe(data => {
       this.product = data
       this.formdata = new FormGroup({
-        name: new FormControl(this.product.name),
-        category: new FormControl(this.product.category),
-        image: new FormControl(this.product.image),
-        price: new FormControl(this.product.price),
-        description: new FormControl(this.product.description)
+        name: new FormControl(this.product.name, Validators.required), 
+        category: new FormControl(this.product.category, Validators.required),
+        image: new FormControl(this.product.image, Validators.required),
+        price: new FormControl(this.product.price, Validators.compose([Validators.required, this.priceValidation])),
+        description: new FormControl(this.product.description, Validators.required)
       });
     
     });
   }
+  priceValidation(formcontrol) {
+    if (isNaN(formcontrol.value)) {
+       return {"passwd" : true};
+    }
+  }
   onClickSubmit() {
-   
-  debugger
     const formValues = this.formdata.value;
     const product1: Product = {
       id: this.product.id,

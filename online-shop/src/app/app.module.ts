@@ -12,6 +12,7 @@ import { CartItemsService } from './cart-items.service';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { OrdersService } from './orders.service';
+import { LoginPageComponent } from './login-page/login-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { OrdersService } from './orders.service';
     ProductListComponent,
     CartComponent,
     AddProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,

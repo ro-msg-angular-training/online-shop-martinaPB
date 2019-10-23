@@ -1,0 +1,10 @@
+<div class="container" *ngIf="!okFlag">
+    <form [formGroup] = "formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+
+        <p><input type = "text" class = "fortextbox" name = "username" formControlName="username"></p>
+        <p><input type = "password" class = "fortextbox" name="password" formControlName = "password"></p>
+       
+       <input type = "submit" [disabled] = "!formdata.valid" class = "forsubmit" value = "Log In">
+
+    </form>
+ </div>

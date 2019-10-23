@@ -9,7 +9,7 @@
         <div class="form-group"><input type="text" name="image" size="100%" formControlName="image"></div>
         <p><input type="text" name="price" formControlName="price"></p>
         <p><input type="text" name="description" size="180%" formControlName="description"></p>
-        <p><button type="submit">Save</button></p>
+        <p><button type="submit" [disabled] = "!formdata.valid">Save</button></p>
     </form>
 </div>
 </div>
