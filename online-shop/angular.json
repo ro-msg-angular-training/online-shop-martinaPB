@@ -121,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "online-shop"
+    }
+  },
+  "defaultProject": "online-shop",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

@@ -9,12 +9,16 @@ export class OrdersService {
   constructor() { }
 
   getOrders(): CartItem[] {
+    debugger
     return this.item;
   }
   placeOrder(order: CartItem[]) {
     debugger
+    this.item=order;
+    /*
     for(var i = 0; i < order.length; i++) {
       this.item.push(order[i]);
     }
+    */
   }
 }

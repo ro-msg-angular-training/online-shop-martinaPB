@@ -3,27 +3,32 @@ import mockdata from '../assets/products.json';
 import { map, catchError } from 'rxjs/operators';
 import { User } from './classes';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  currentUser: User;
+  currentUser1: Observable<User>;
+  currentUser : User;
 
-  constructor(private httpClient: HttpClient) { }
+
+  constructor(private httpClient: HttpClient) {
+   
+   }
 
   login(username: string, password: string): Observable<User> {
-    return this.httpClient.post<User>('http://localhost:3000/login', { username, password })
-      .pipe(map(user => {
-        if (user) {
-          this.currentUser = user;
-        }
-        return user;
-      }),
-        catchError(errorResponse => throwError(errorResponse)));
+    debugger
+    this.currentUser1= this.httpClient.post<User>('http://localhost:3000/login', { username, password })
+    .pipe(catchError(errorResponse => throwError(errorResponse)));
+        return this.currentUser1;
   }
 
-  getCurrentUser(): any {
-    return this.currentUser;
+  setCurrentUser( user: User ) {
+    this.currentUser = user;
+  }
+  getCurrentUser(): User {
+    debugger
+    const user = this.currentUser;
+    return user;
   }
 }

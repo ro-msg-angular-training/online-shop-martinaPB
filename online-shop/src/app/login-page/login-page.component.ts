@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, NgForm } from '@angula
 import { LoginService } from '../login.service';
 import { User } from '../classes.js';
 import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -12,6 +13,7 @@ export class LoginPageComponent implements OnInit {
   formdata: FormGroup;
   currentUser: User;
   okFlag = false;
+  isLoginMode = true;
   constructor(
     private formBuilder: FormBuilder,
     private login: LoginService,
@@ -24,19 +26,34 @@ export class LoginPageComponent implements OnInit {
       password: ['', Validators.required]
     });
   }
+
+  onSwitchMode() {
+    this.isLoginMode = !this.isLoginMode;
+  }
+
   onClickSubmit(data: NgForm) {
     const user = this.formdata.value.username;
     const pass = this.formdata.value.password;
-    //this.formdata.reset();
+    //if (this.isLoginMode) {
+
+    //} else {
     debugger
     this.okFlag = true;
+   
     this.login.login(this.formdata.controls.username.value, this.formdata.controls.password.value)
+      .pipe(first())
       .subscribe(
         user => {
           this.currentUser = user;
           console.log(user);
-          //this.isLoading = false;
+          this.okFlag = false;
+          this.login.setCurrentUser(user);
           this.router.navigateByUrl('/products');
+          
         });
-  }
+       // this.router.navigateByUrl('/products');
+    } 
+    
+    //this.formdata.reset();
+ // }
 }

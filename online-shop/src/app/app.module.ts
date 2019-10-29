@@ -13,6 +13,13 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { OrdersService } from './orders.service';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromApp from '../app/store/reducers/app.reducer';
+import { ProductListEffects } from './store/effects/product-list.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ProductListReducer } from './store/reducers/product-list.reducer';
+import { ProdDetailReducer } from './store/reducers/prod-detail.reducer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +35,13 @@ import { LoginPageComponent } from './login-page/login-page.component';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    StoreModule.forRoot( fromApp.appReducer),
+    // StoreModule.forRoot([ ProductListReducer, ProdDetailReducer ]),
+    EffectsModule.forRoot([ProductListEffects]),
+    ReactiveFormsModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+    })
   ],
   providers: [ProductsService, CartItemsService, OrdersService],
   bootstrap: [AppComponent]
