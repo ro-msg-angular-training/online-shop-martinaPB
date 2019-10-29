@@ -5,6 +5,9 @@ import { CartItem, Product } from '../classes.js';
 import { ProductsService } from '../products.service';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import * as ProductListActions from '../store/actions/product-list.actions';
+import * as fromApp from '../store/reducers/app.reducer';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
@@ -18,7 +21,8 @@ export class EditProductComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private products: ProductsService,
-    private http: HttpClient
+    private http: HttpClient,
+    private store: Store<fromApp.IAppState>
   ) { }
 
   ngOnInit() {
@@ -43,15 +47,23 @@ export class EditProductComponent implements OnInit {
   }
   onClickSubmit() {
     const formValues = this.formdata.value;
-    const product1: Product = {
+    /*const product1: Product = {
       id: this.product.id,
       name: formValues.name,
       category: formValues.category,
       price: formValues.price,
       image: formValues.image,
       description: formValues.description
-    };
-    return this.http.put<Product>("http://localhost:3000/products/" +  this.product.id, product1).subscribe();
+    };*/
+    this.product.name = formValues.name;
+    this.product.category = formValues.category;
+    this.product.price = formValues.price;
+    this.product.image = formValues.image;
+    this.product.description = formValues.description;
+    //const id = this.product.id;
+    //return this.http.put<Product>("http://localhost:3000/products/" +  this.product.id, product1).subscribe();
+    //this.store.dispatch(new ProductListActions.EditProduct(id, product1));
+    this.store.dispatch(new ProductListActions.EditProduct({id: this.product.id, product: this.product}));
   }
   goBack(): void {
     this.location.back();

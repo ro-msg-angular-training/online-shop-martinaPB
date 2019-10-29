@@ -7,6 +7,8 @@ export const GET_DETAILS = 'GetDetails';
 export const GET_DETAILS_SUCCESS = 'GetDetailsSuccess';
 export const ADD_PRODUCT = 'AddProduct';
 export const ADD_PRODUCT_SUCCESS = 'AddProductSuccess';
+export const EDIT_PRODUCT = 'EditProduct';
+export const EDIT_PRODUCT_SUCCESS = 'EditProductSuccess';
 export const GET_CART = 'GetCart';
 export const GET_CART_SUCCESS = 'GetCartSuccess';
 
@@ -33,6 +35,13 @@ export class AddProductSuccess implements Action {
   readonly type = ADD_PRODUCT_SUCCESS;
   constructor(public payload: Product) { }
 }
+export class EditProduct implements Action {
+  readonly type = EDIT_PRODUCT;
+  constructor(public payload: { id: number, product: Product }) { }
+}
+export class EditProductSuccess implements Action {
+  readonly type = EDIT_PRODUCT_SUCCESS;
+}
 export class GetCart implements Action {
   readonly type = GET_CART;
 }
@@ -41,4 +50,4 @@ export class GetCartSuccess implements Action {
   constructor(public payload: { items: CartItem[] }) { }
 }
 
-export type ProductActions = GetProducts | GetProductsSuccess | GetDetailsSuccess | GetCart | GetCartSuccess | AddProduct | AddProductSuccess;
+export type ProductActions = GetProducts | GetProductsSuccess | GetDetailsSuccess | GetCart | GetCartSuccess | AddProduct | AddProductSuccess | EditProduct | EditProductSuccess;

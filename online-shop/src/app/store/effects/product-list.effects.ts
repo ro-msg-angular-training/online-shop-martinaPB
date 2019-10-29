@@ -28,12 +28,23 @@ export class ProductListEffects {
         map((responseData) =>
             new ProductListActions.GetDetailsSuccess(responseData))
     );
-     @Effect()
-     addProduct = this.actions$.pipe(
-         ofType(ProductListActions.ADD_PRODUCT),
-         switchMap((data: ProductListActions.AddProduct) => this.productService.addProduct(data.payload)),
-         map(responseData => new ProductListActions.AddProductSuccess(responseData)),
-         tap(() => this.router.navigate(['/add-product'])));
+    @Effect()
+    addProduct = this.actions$.pipe(
+        ofType(ProductListActions.ADD_PRODUCT),
+        switchMap((data: ProductListActions.AddProduct) => this.productService.addProduct(data.payload)),
+        map(responseData => new ProductListActions.AddProductSuccess(responseData)),
+        tap(() => this.router.navigate(['/products'])));
+    @Effect()
+    editProduct = this.actions$.pipe(
+         ofType(ProductListActions.EDIT_PRODUCT),
+         switchMap((data: ProductListActions.EditProduct) => {
+            return this.productService.editProduct(data.payload.product);
+          }),
+         map(() => new ProductListActions.EditProductSuccess()),
+         tap(() => this.router.navigate(['/products']))
+         );      
+
+
     @Effect()
     getCart = this.actions$.pipe(
         ofType(ProductListActions.GET_CART),

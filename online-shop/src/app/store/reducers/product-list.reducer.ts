@@ -38,6 +38,11 @@ export function ProductListReducer(state: IState = initialState, action: Product
         ...state,
         products: [...state.products, action.payload]
       };
+    case ProductListActions.EDIT_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        
+      };
     case ProductListActions.GET_CART: {
       return {
         ...state
