@@ -1,28 +1,30 @@
-<div style = "text-align:center" *ngIf="product$ | async as product">
-    <button style = "text-align:left" class="btn btn-primary" (click)="goBack()">Back</button>
+<div style="text-align:center" *ngIf="product$ | async as product">
+    <button style="text-align:left" class="btn btn-primary" (click)="goBack()">Back</button>
     <button class="btn btn-primary" (click)="addToCart()">Add</button>
     <button class="btn btn-primary" routerLink="/edit-product/{{product.id}}">Edit</button>
     <button class="btn btn-primary" (click)="deleteProduct()">Delete</button>
     <h1>
         {{title}} {{product.name}}
     </h1>
-    <table *ngIf="product" >
-        <tr>
-            <td>Name</td>
-            <td>{{product.name}}</td>
-            <td><img src={{product.image}} width="120" height="90" alt="Product Image"></td>
-        </tr>
-        <tr>
-            <td>Category</td>
-            <td>{{product.category}}</td>
-        </tr>
-        <tr>
-            <td>Price</td>
-            <td>{{product.price}}</td>
-        </tr>
-        <tr>
-            <td>Description</td>
-            <td>{{product.description}}</td>
-        </tr>
-    </table>
- </div>
+    <div class="table-responsive">
+        <table class="table table-borderless" *ngIf="product">
+            <tr>
+                <td>Name</td>
+                <td>{{product.name}}</td>
+                <td><img src={{product.image}} width="120" height="90" alt="Product Image"></td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>{{product.category}}</td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>{{product.price}}</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>{{product.description}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

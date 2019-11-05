@@ -4,6 +4,7 @@ import { LoginService } from '../login.service';
 import { User } from '../classes.js';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -14,6 +15,7 @@ export class LoginPageComponent implements OnInit {
   currentUser: User;
   okFlag = false;
   isLoginMode = true;
+  subscriptions: Subscription[] = [];
   constructor(
     private formBuilder: FormBuilder,
     private login: LoginService,
@@ -34,26 +36,23 @@ export class LoginPageComponent implements OnInit {
   onClickSubmit(data: NgForm) {
     const user = this.formdata.value.username;
     const pass = this.formdata.value.password;
-    //if (this.isLoginMode) {
-
-    //} else {
-    debugger
     this.okFlag = true;
-   
-    this.login.login(this.formdata.controls.username.value, this.formdata.controls.password.value)
+
+    this.subscriptions.push(this.login.login(this.formdata.controls.username.value, this.formdata.controls.password.value)
       .pipe(first())
       .subscribe(
         user => {
           this.currentUser = user;
-          console.log(user);
           this.okFlag = false;
           this.login.setCurrentUser(user);
           this.router.navigateByUrl('/products');
-          
-        });
-       // this.router.navigateByUrl('/products');
-    } 
-    
-    //this.formdata.reset();
- // }
+
+        }));
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(element => {
+      element.unsubscribe();
+    });
+
+  }
 }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import mockdata from '../assets/products.json';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +6,4 @@ import mockdata from '../assets/products.json';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private products = Object.values(mockdata);
 }

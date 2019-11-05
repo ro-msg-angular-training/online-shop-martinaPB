@@ -1,12 +1,23 @@
-import { TestBed } from '@angular/core/testing';
-
 import { LoginService } from './login.service';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
-describe('LoginService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+fdescribe('LoginService', () => {
+  let login: LoginService;
+  let http: HttpClient;
 
-  it('should be created', () => {
-    const service: LoginService = TestBed.get(LoginService);
-    expect(service).toBeTruthy();
+  const loginData = {username: 'doej', fullname: 'John Doe', roles: ['user', 'customer']};
+
+  beforeEach( () => {
+    login = new LoginService(http);
+    spyOn(login, 'login').and.returnValue(of(loginData));
   });
+
+  fit('login service test', (done: DoneFn) => {
+    login.login('doej', 'password').subscribe(response => {
+      expect(response).toBe(loginData);
+      done();
+    });
+  });
+
 });

@@ -7,18 +7,18 @@ import { LoginService } from '../login.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor( 
+  constructor(
     private login: LoginService,
     private router: Router
-  ) {}
+  ) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      const user = this.login.currentUser;
-      if (user) {
-        return true;
-      }
-      return this.router.createUrlTree(['/login']);
+    const user = this.login.currentUser;
+    if (user) {
+      return true;
+    }
+    return this.router.createUrlTree(['/login']);
   }
-  
+
 }

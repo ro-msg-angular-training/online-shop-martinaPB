@@ -1,15 +1,18 @@
-<div class="container" *ngIf="product">
-<h1>
-    {{title}}
-</h1>
-<div>
-    <form [formGroup]="formdata" (ngSubmit)="onClickSubmit()">
-        <p><input type="text" name="name" formControlName="name"></p>
-        <div class="form-group"><input formControlName="category" id="category" type="text" class="form-control input-md"></div>
-        <div class="form-group"><input type="text" name="image" size="100%" formControlName="image"></div>
-        <p><input type="text" name="price" formControlName="price"></p>
-        <p><input type="text" name="description" size="180%" formControlName="description"></p>
-        <p><button type="submit" [disabled] = "!formdata.valid">Save</button></p>
-    </form>
-</div>
+<div *ngIf="product">
+    <h1>
+        {{title}}
+    </h1>
+    <div>
+        <form [formGroup]="formdata" (ngSubmit)="onClickSubmit()">
+            <div class="px-5">
+                <p><input type="text" name="name" formControlName="name"></p>
+                <p><input formControlName="category" id="category" type="text"></p>
+                <p><input type="text" name="image" size="100%" formControlName="image"></p>
+                <p><input type="text" name="price" formControlName="price"></p>
+                <p><input type="text" name="description" size="180%" formControlName="description"></p>
+                <p><button type="submit" [disabled]="!formdata.valid">Save</button></p>
+                <p><button (click)="goBack()">Cancel</button></p>
+            </div>
+        </form>
+    </div>
 </div>

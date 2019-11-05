@@ -18,8 +18,6 @@ import * as fromApp from '../app/store/reducers/app.reducer';
 import { ProductListEffects } from './store/effects/product-list.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { ProductListReducer } from './store/reducers/product-list.reducer';
-import { ProdDetailReducer } from './store/reducers/prod-detail.reducer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,8 +33,7 @@ import { ProdDetailReducer } from './store/reducers/prod-detail.reducer';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot( fromApp.appReducer),
-    // StoreModule.forRoot([ ProductListReducer, ProdDetailReducer ]),
+    StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([ProductListEffects]),
     ReactiveFormsModule,
     StoreDevtoolsModule.instrument({

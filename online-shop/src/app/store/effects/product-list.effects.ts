@@ -1,20 +1,18 @@
 import { Actions, ofType, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import * as ProductListActions from '../actions/product-list.actions';
-import * as ProdDetailActions from '../actions/prod-detail.actions';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { switchMap, map, tap, catchError } from 'rxjs/operators';
 import { ProductsService } from 'src/app/products.service';
 import { OrdersService } from 'src/app/orders.service';
+import { LoginService } from 'src/app/login.service';
 import { Router } from '@angular/router';
-import { Product } from 'src/app/classes';
 @Injectable()
 export class ProductListEffects {
     constructor(private actions$: Actions,
         private productService: ProductsService,
         private router: Router,
-        private ordersService: OrdersService,
+        private ordersService: OrdersService
     ) { }
-
     @Effect()
     getProducts = this.actions$.pipe(
         ofType(ProductListActions.GET_PRODUCTS),
@@ -43,7 +41,15 @@ export class ProductListEffects {
          map(() => new ProductListActions.EditProductSuccess()),
          tap(() => this.router.navigate(['/products']))
          );      
-
+    @Effect()
+    deleteProduct = this.actions$.pipe(
+         ofType(ProductListActions.DELETE_PRODUCT),
+         switchMap((data: ProductListActions.DeleteProduct) => {
+            return this.productService.deleteProduct(data.payload)
+        .pipe(map(() => new ProductListActions.DeleteProductSuccess()),
+          tap(() => this.router.navigate(['/products'])));
+    })
+         ); 
 
     @Effect()
     getCart = this.actions$.pipe(

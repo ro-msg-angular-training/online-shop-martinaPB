@@ -1,12 +1,14 @@
 <h1>
     {{title}}
 </h1>
-<form #addproduct = "ngForm" (ngSubmit) = "onClickSubmit(addproduct.value)" >
-    <p><input type = "text" name = "name" placeholder = "name" ngModel></p>    
-    <p><input type = "text" name = "category" placeholder = "category" ngModel></p>    
-    <p><input type = "text" name = "image" placeholder = "image path" size="100%" ngModel></p>  
-    <p><input type = "text" name = "price" placeholder = "price" ngModel></p>   
-    <p><input type = "text" name = "description" placeholder = "description" size="180%" ngModel></p>    
-    <p><input type = "submit" value = "Submit"></p>
- </form>
- <button (click)="goBack()">Cancel</button>
+<form #addproduct="ngForm" (ngSubmit)="onClickSubmit(addproduct.value)">
+    <div class="px-5">
+        <p><input type="text" name="name" placeholder="name" ngModel></p>
+        <p><input type="text" name="category" placeholder="category" ngModel></p>
+        <p><input type="text" name="image" placeholder="image path" size="100%" ngModel></p>
+        <p><input type="text" name="price" placeholder="price" ngModel></p>
+        <p><input type="text" name="description" placeholder="description" size="180%" ngModel></p>
+        <p><input type="submit" value="Submit"></p>
+        <p><button (click)="goBack()">Cancel</button></p>
+    </div>
+</form>

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import mockdata from '../assets/products.json';
 import { Product } from './classes';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -15,34 +14,20 @@ export class ProductsService {
     private route: ActivatedRoute,
     private http: HttpClient
   ) { }
-  getProducts(): Observable<Product[]>{
+  getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>("http://localhost:3000/products");
   }
   getProduct(id: number): Observable<Product> {
-    debugger
-    return  this.http.get<any>("http://localhost:3000/products/" + id);  
-
+    return this.http.get<any>("http://localhost:3000/products/" + id);
   }
   addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>("http://localhost:3000/products", product).pipe(retry(1));  
+    return this.http.post<Product>("http://localhost:3000/products", product).pipe(retry(1));
   }
- /* editProduct(id, product: Product): Observable<Product> {
-    return this.http.put<Product>("http://localhost:3000/products/" + id, product).pipe(retry(1));
-  }*/
   editProduct(product: Product): Observable<void> {
     const id = product.id;
     return this.http.put<void>("http://localhost:3000/products/" + id, product).pipe(retry(1));
   }
-
-
-
-  deleteProduct() {
-    /*this.products.pop();
-    const url = '${this.heroesUrl}/${id}'; // DELETE api/heroes/42
-    return this.http.delete(url, httpOptions)
-      .pipe(
-        catchError(this.handleError('deleteHero'))
-      );
-*/
+  deleteProduct(id: number) {
+    return this.http.delete<Product[]>("http://localhost:3000/products/" + id).pipe(retry(1));
   }
 }

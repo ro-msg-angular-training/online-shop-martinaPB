@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Product, CartItem } from 'src/app/classes';
+import { Product, CartItem, User } from 'src/app/classes';
 
 export const GET_PRODUCTS = 'GetProducts';
 export const GET_PRODUCTS_SUCCESS = 'GetProductsSuccess';
@@ -9,6 +9,8 @@ export const ADD_PRODUCT = 'AddProduct';
 export const ADD_PRODUCT_SUCCESS = 'AddProductSuccess';
 export const EDIT_PRODUCT = 'EditProduct';
 export const EDIT_PRODUCT_SUCCESS = 'EditProductSuccess';
+export const DELETE_PRODUCT = 'DeleteProduct';
+export const DELETE_PRODUCT_SUCCESS = 'DeleteProductSuccess';
 export const GET_CART = 'GetCart';
 export const GET_CART_SUCCESS = 'GetCartSuccess';
 
@@ -42,6 +44,13 @@ export class EditProduct implements Action {
 export class EditProductSuccess implements Action {
   readonly type = EDIT_PRODUCT_SUCCESS;
 }
+export class DeleteProduct implements Action {
+  readonly type = DELETE_PRODUCT;
+  constructor(public payload: number) { }
+}
+export class DeleteProductSuccess implements Action {
+  readonly type = DELETE_PRODUCT_SUCCESS;
+}
 export class GetCart implements Action {
   readonly type = GET_CART;
 }
@@ -50,4 +59,6 @@ export class GetCartSuccess implements Action {
   constructor(public payload: { items: CartItem[] }) { }
 }
 
-export type ProductActions = GetProducts | GetProductsSuccess | GetDetailsSuccess | GetCart | GetCartSuccess | AddProduct | AddProductSuccess | EditProduct | EditProductSuccess;
+export type ProductActions = GetProducts | GetProductsSuccess | GetDetailsSuccess | GetCart |
+  GetCartSuccess | AddProduct | AddProductSuccess | EditProduct | EditProductSuccess |
+  DeleteProduct | DeleteProductSuccess;

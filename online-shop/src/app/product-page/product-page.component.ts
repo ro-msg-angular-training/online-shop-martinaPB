@@ -7,15 +7,10 @@ import { CartItemsService } from '../cart-items.service';
 import { ProductsService } from '../products.service';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../login.service.js';
-import { GetDetails } from '../store/actions/prod-detail.actions.js';
 import { Subscription, Observable, of } from 'rxjs';
 import * as ProductListActions from '../store/actions/product-list.actions';
-import * as ProdDetailActions from '../store/actions/prod-detail.actions';
-import { IState } from '../store/reducers/prod-detail.reducer.js';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../store/reducers/app.reducer';
-import { ProductListComponent } from '../product-list/product-list.component.js';
-
 
 @Component({
   selector: 'app-product-page',
@@ -30,6 +25,7 @@ export class ProductPageComponent implements OnInit {
   private admin = false;
   private customer = false;
   productService: any;
+  subscriptions: Subscription[] = [];
   private subscription: Subscription = new Subscription();
   constructor(
     private route: ActivatedRoute,
@@ -56,38 +52,32 @@ export class ProductPageComponent implements OnInit {
 
   //}
   ngOnInit() {
-    debugger
-    //const id = +this.route.snapshot.paramMap.get('id');
-    this.route.params.subscribe(params => this.store.dispatch(new ProductListActions.GetDetails(Number(params.id))));
-    this.store.select(state => state.productList).subscribe(response => {
+    this.subscriptions.push(this.route.params.subscribe(params => this.store.dispatch(new ProductListActions.GetDetails(Number(params.id)))));
+    this.subscriptions.push(this.store.select(state => state.productList).subscribe(response => {
       if (response) {
-        console.log(response);
         this.product$ = of(response.productDetail);
       }
     }
-    );
-    //this.http.get<Product>("http://localhost:3000/products/" + id)
-    //       .subscribe(data => this.product = data);
+    ));
   }
-
   goBack(): void {
     this.location.back();
   }
 
   addToCart(): void {
-    debugger
     const id = +this.route.snapshot.paramMap.get('id');
-    //const id = this.product$.id;
     this.item = Object.values(mockdata)[id];
     this.cartItem.addCartItem(this.item);
   }
   deleteProduct(): void {
-    debugger
     const id = +this.route.snapshot.paramMap.get('id');
-    //const id = this.product$.id;
     this.product$ = of(Object.values(mockdata)[id]);
-    //this.products.deleteProduct(this.product$);
-    this.http.delete<Product[]>("http://localhost:3000/products/" + id)
-          .subscribe(data => this.productss = data);
+    this.store.dispatch(new ProductListActions.DeleteProduct(id));
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(element => {
+      element.unsubscribe();
+    });
+
   }
 }
