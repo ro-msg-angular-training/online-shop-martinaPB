@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import mockdata from '../../assets/products.json';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { CartItem, Product, User, Role } from '../classes.js';
 import { CartItemsService } from '../cart-items.service';
@@ -11,6 +11,7 @@ import { Subscription, Observable, of } from 'rxjs';
 import * as ProductListActions from '../store/actions/product-list.actions';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../store/reducers/app.reducer';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-product-page',
@@ -28,15 +29,15 @@ export class ProductPageComponent implements OnInit {
   subscriptions: Subscription[] = [];
   private subscription: Subscription = new Subscription();
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
-    private location: Location,
+    //private location: Location,
     private cartItem: CartItemsService,
-    private products: ProductsService,
-    private http: HttpClient,
-    private login: LoginService,
+    //private products: ProductsService,
+    //private http: HttpClient,
+    //private login: LoginService,
     private store: Store<fromApp.IAppState>
   ) { }
-
   /*ngOnInit() {
      this.products.getProduct();
      /*const user = this.login.getCurrentUser();
@@ -52,23 +53,25 @@ export class ProductPageComponent implements OnInit {
 
   //}
   ngOnInit() {
-    this.subscriptions.push(this.route.params.subscribe(params => this.store.dispatch(new ProductListActions.GetDetails(Number(params.id)))));
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.store.dispatch(new ProductListActions.GetDetails(id));
     this.subscriptions.push(this.store.select(state => state.productList).subscribe(response => {
       if (response) {
         this.product$ = of(response.productDetail);
+        debugger
       }
     }
     ));
   }
-  goBack(): void {
-    this.location.back();
-  }
-
   addToCart(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.item = Object.values(mockdata)[id];
     this.cartItem.addCartItem(this.item);
   }
+  editProduct(id: number): void {
+    this.router.navigateByUrl('/edit-product/' + id);
+  }
+  //routerLink="/edit-product/{{product.id}}"
   deleteProduct(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.product$ = of(Object.values(mockdata)[id]);

@@ -9,7 +9,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { AuthGuard } from '../app/auth/auth.guard';
 const routes: Routes = [
   { path: 'products', component: ProductListComponent, canActivate: [AuthGuard] },
-  { path: 'product-page/:id', component: ProductPageComponent, canActivate: [AuthGuard] },
+  { path: 'product-page/:id', component: ProductPageComponent},// canActivate: [AuthGuard] },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
   { path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard] },
   { path: 'edit-product/:id', component: EditProductComponent, canActivate: [AuthGuard] },

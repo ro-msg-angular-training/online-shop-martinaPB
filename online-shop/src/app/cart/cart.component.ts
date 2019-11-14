@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartItem } from '../classes.js';
 import { CartItemsService } from '../cart-items.service';
 import { OrdersService } from '../orders.service';
-import { GetCart } from '../store/actions/product-list.actions.js';
+//import { GetCart } from '../store/actions/product-list.actions.js';
 import * as fromApp from '../store/reducers/app.reducer';
 import * as ProductListActions from '../store/actions/product-list.actions';
 import { Store } from '@ngrx/store';
@@ -24,10 +24,11 @@ export class CartComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(new ProductListActions.GetCart());
+    /*this.store.dispatch(new ProductListActions.GetCart());
     this.subscription.add(this.store.select(state => state.productList.items).subscribe(data => {
       this.item = data;
-    }));
+    }));*/
+    this.item = this.cartItem.getItems();
   }
 
   checkout() {

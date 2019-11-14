@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as ProductListActions from '../actions/product-list.actions';
 import { switchMap, map, tap, catchError } from 'rxjs/operators';
 import { ProductsService } from 'src/app/products.service';
-import { OrdersService } from 'src/app/orders.service';
+//import { OrdersService } from 'src/app/orders.service';
 import { LoginService } from 'src/app/login.service';
 import { Router } from '@angular/router';
 @Injectable()
@@ -11,7 +11,7 @@ export class ProductListEffects {
     constructor(private actions$: Actions,
         private productService: ProductsService,
         private router: Router,
-        private ordersService: OrdersService
+        //private ordersService: OrdersService
     ) { }
     @Effect()
     getProducts = this.actions$.pipe(
@@ -51,11 +51,11 @@ export class ProductListEffects {
     })
          ); 
 
-    @Effect()
+    /*@Effect()
     getCart = this.actions$.pipe(
         ofType(ProductListActions.GET_CART),
         switchMap(() => this.ordersService.getOrders()),
         map(data => new ProductListActions.GetCartSuccess({ items: [data] }))
-    );
+    );*/
 
 }

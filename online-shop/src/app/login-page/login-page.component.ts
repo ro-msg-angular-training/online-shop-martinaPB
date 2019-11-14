@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
+  title = 'Login Page'
   formdata: FormGroup;
   currentUser: User;
   okFlag = false;

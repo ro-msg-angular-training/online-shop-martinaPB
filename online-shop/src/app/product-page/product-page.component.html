@@ -1,13 +1,10 @@
 <div style="text-align:center" *ngIf="product$ | async as product">
-    <button style="text-align:left" class="btn btn-primary" (click)="goBack()">Back</button>
     <button class="btn btn-primary" (click)="addToCart()">Add</button>
-    <button class="btn btn-primary" routerLink="/edit-product/{{product.id}}">Edit</button>
+    <button class="btn btn-primary" (click)="editProduct(product.id)">Edit</button>
     <button class="btn btn-primary" (click)="deleteProduct()">Delete</button>
-    <h1>
-        {{title}} {{product.name}}
-    </h1>
+    <h1>{{title}}{{product.name}}</h1>
     <div class="table-responsive">
-        <table class="table table-borderless" *ngIf="product">
+        <table id = "DetailsTable" class="table table-borderless" *ngIf="product">
             <tr>
                 <td>Name</td>
                 <td>{{product.name}}</td>
@@ -23,7 +20,7 @@
             </tr>
             <tr>
                 <td>Description</td>
-                <td>{{product.description}}</td>
+                <p>{{product.description}}</p>
             </tr>
         </table>
     </div>

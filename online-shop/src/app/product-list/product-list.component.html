@@ -4,13 +4,13 @@
     </h1>
     <button class="btn btn-primary" routerLink="/cart">Cart</button>
     <button class="btn btn-primary" routerLink="/add-product">Add</button><!--[hidden]="!admin"-->
-    <table class="table table-bordered">
+    <table id ="ProductsTable" class="table table-bordered">
         <tr>
             <td>Category</td>
             <td>Name</td>
             <td>Price</td>
         </tr>
-        <tr *ngFor="let product of products"  routerLink="/product-page/{{product.id}}">
+        <tr  id ="ProductsRow" *ngFor="let product of products" routerLink="/product-page/{{product.id}}">
             <td>{{product.category}}</td>
             <td>{{product.name}}</td>
             <td>{{product.price}}</td>

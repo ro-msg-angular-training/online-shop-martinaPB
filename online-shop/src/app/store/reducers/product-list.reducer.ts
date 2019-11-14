@@ -11,7 +11,7 @@ export interface IState {
   productDetail: Product;
   items: CartItem[];
 }
-const initialState: IState = {
+export const initialState: IState = {
   user: null,
   loading: false,
   fetchedUser: false,
@@ -52,7 +52,7 @@ export function ProductListReducer(state: IState = initialState, action: Product
       return {
         ...state,
       };
-    case ProductListActions.GET_CART:
+    /*case ProductListActions.GET_CART:
       return {
         ...state
       };
@@ -60,6 +60,6 @@ export function ProductListReducer(state: IState = initialState, action: Product
       return {
         ...state,
         products: action.payload.items
-      };
+      };*/
   }
 }

@@ -5,5 +5,5 @@ export interface IAppState {
     productList: fromProducts.IState;
 }
 export const appReducer: ActionReducerMap<IAppState> = {
-    productList: fromProducts.ProductListReducer
+    productList: fromProducts.ProductListReducer,
 };
